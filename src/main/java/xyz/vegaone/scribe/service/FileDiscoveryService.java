@@ -1,7 +1,8 @@
 package xyz.vegaone.scribe.service;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FileDiscoveryService {
-    List<String> discoverFiles(String directoryPath);
+    Map<String, List<String>> discoverFiles(String directoryPath);
 }
