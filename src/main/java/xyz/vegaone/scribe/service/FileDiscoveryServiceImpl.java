@@ -16,10 +16,10 @@ import java.util.stream.Stream;
 @Service
 @Slf4j
 public class FileDiscoveryServiceImpl implements FileDiscoveryService {
-    private static final String TEXT_FINAL_FORMAT = "txt";
-    private static final String PDF_FINAL_FORMAT = "pdf";
-    private static final String DOC_FINAL_FORMAT = "doc";
-    private static final String UNKNOWN_FINAL_FORMAT = "unknown";
+    private static final String TEXT_FILE_FORMAT = "txt";
+    private static final String PDF_FILE_FORMAT = "pdf";
+    private static final String DOC_FILE_FORMAT = "doc";
+    private static final String UNKNOWN_FILE_FORMAT = "unknown";
 
 
     @Override
@@ -33,11 +33,11 @@ public class FileDiscoveryServiceImpl implements FileDiscoveryService {
         try (Stream<Path> paths = Files.walk(Paths.get(directoryPath), Integer.MAX_VALUE)) {
             paths.forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-                    if (filePath.toString().endsWith(TEXT_FINAL_FORMAT)) {
+                    if (filePath.toString().endsWith(TEXT_FILE_FORMAT)) {
                         txtList.add(filePath.toString());
-                    } else if (filePath.toString().endsWith(DOC_FINAL_FORMAT)) {
+                    } else if (filePath.toString().endsWith(DOC_FILE_FORMAT)) {
                         docList.add(filePath.toString());
-                    } else if (filePath.toString().endsWith(PDF_FINAL_FORMAT)) {
+                    } else if (filePath.toString().endsWith(PDF_FILE_FORMAT)) {
                         pdfList.add(filePath.toString());
                     } else {
                         unknownFormat.add(filePath.toString());
@@ -45,14 +45,14 @@ public class FileDiscoveryServiceImpl implements FileDiscoveryService {
                 }
             });
         } catch (IOException e) {
-            System.out.println("Error while discovering files" + e.getMessage());
+            log.error("Error while discovering files", e);
         }
 
         Map<String, List<String>> filePathsFound = new HashMap<>();
-        filePathsFound.put(TEXT_FINAL_FORMAT, txtList);
-        filePathsFound.put(DOC_FINAL_FORMAT, docList);
-        filePathsFound.put(PDF_FINAL_FORMAT, pdfList);
-        filePathsFound.put(UNKNOWN_FINAL_FORMAT, unknownFormat);
+        filePathsFound.put(TEXT_FILE_FORMAT, txtList);
+        filePathsFound.put(DOC_FILE_FORMAT, docList);
+        filePathsFound.put(PDF_FILE_FORMAT, pdfList);
+        filePathsFound.put(UNKNOWN_FILE_FORMAT, unknownFormat);
 
         return filePathsFound;
     }
