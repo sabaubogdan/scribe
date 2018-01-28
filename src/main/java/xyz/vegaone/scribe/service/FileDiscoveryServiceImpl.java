@@ -13,14 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static xyz.vegaone.scribe.service.ScribeConstants.*;
+
 @Service
 @Slf4j
 public class FileDiscoveryServiceImpl implements FileDiscoveryService {
-    private static final String TEXT_FILE_FORMAT = "txt";
-    private static final String PDF_FILE_FORMAT = "pdf";
-    private static final String DOC_FILE_FORMAT = "doc";
-    private static final String UNKNOWN_FILE_FORMAT = "unknown";
-
 
     @Override
     public Map<String, List<String>> discoverFiles(String directoryPath) {
