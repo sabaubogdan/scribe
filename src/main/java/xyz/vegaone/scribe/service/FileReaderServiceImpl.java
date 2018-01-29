@@ -17,7 +17,8 @@ import java.util.Map;
 @Service
 public class FileReaderServiceImpl implements FileReaderService {
 
-    public Map<Integer, String> readOneFile(String path) throws IOException {
+    @Override
+    public Map<Integer, String> contentReaderPdf(String path) throws IOException {
 
         Map<Integer, String> pageNumberAndText = new HashMap<>();
 
@@ -41,26 +42,20 @@ public class FileReaderServiceImpl implements FileReaderService {
         return pageNumberAndText;
     }
 
-    public List<FileDto> fileListReader(List<String> pathList) throws IOException {
-
+    @Override
+    public List<FileDto> contentReaderPdfList(List<String> pathList) throws IOException {
         List<FileDto> fileDtoList = new ArrayList<>();
 
         for (String path : pathList) {
             FileDto fileDto = new FileDto();
 
             fileDto.setPath(path);
-            fileDto.setFileContent(readOneFile(path));
+            fileDto.setFileContent(contentReaderPdf(path));
 
             fileDtoList.add(fileDto);
         }
 
         return fileDtoList;
-    }
-
-    @Override
-    public Map<Integer, String> contentReaderPdf() throws IOException {
-
-        return null;
     }
 
     @Override

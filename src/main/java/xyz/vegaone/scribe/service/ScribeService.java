@@ -12,25 +12,25 @@ import java.util.Map;
 @Slf4j
 public class ScribeService {
 
-    private FileDiscoveryServiceImpl fileDiscoveryServiceImpl;
+    private FileDiscoveryService fileDiscoveryService;
 
-    private FileReaderServiceImpl fileReaderServiceImpl;
+    private FileReaderService fileReaderService;
 
     public ScribeService() {
     }
 
     @Autowired
-    public ScribeService(FileDiscoveryServiceImpl fileDiscoveryServiceImpl, FileReaderServiceImpl fileReaderServiceImpl) {
-        this.fileDiscoveryServiceImpl = fileDiscoveryServiceImpl;
-        this.fileReaderServiceImpl = fileReaderServiceImpl;
+    public ScribeService(FileDiscoveryService fileDiscoveryService, FileReaderService fileReaderService) {
+        this.fileDiscoveryService = fileDiscoveryService;
+        this.fileReaderService = fileReaderService;
     }
 
     public Map<String, List<String>> discoverAndIndexFiles(String directoryPath) throws IOException {
 
-        Map<String, List<String>> pathsFound = fileDiscoveryServiceImpl.discoverFiles(directoryPath);
+        Map<String, List<String>> pathsFound = fileDiscoveryService.discoverFiles(directoryPath);
 
         List<String> pdfPathList = pathsFound.get(ScribeConstants.PDF_FILE_FORMAT);
-        fileReaderServiceImpl.fileListReader(pdfPathList);
+        fileReaderService.contentReaderPdfList(pdfPathList);
 
         //TODO call a method to post the result to elastic search (this last method will be defined later).
 
