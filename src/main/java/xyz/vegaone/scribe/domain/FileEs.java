@@ -1,9 +1,14 @@
-package xyz.vegaone.scribe.dto;
+package xyz.vegaone.scribe.domain;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.Map;
 
-public class FileDto {
+@Document(indexName = "scribe", type = "docs")
+public class FileEs {
 
+    @Id
     private String path;
 
     private String fileName;
@@ -36,7 +41,7 @@ public class FileDto {
 
     @Override
     public String toString() {
-        return "FileDto{" +
+        return "FileEs{" +
                 "path='" + path + '\'' +
                 ", fileName='" + fileName + '\'' +
                 ", fileContent=" + fileContent +
